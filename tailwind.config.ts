@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -52,16 +53,43 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
-				}
+				// Custom theme colors
+				forest: {
+					50: '#f0f7f0',
+					100: '#dcefdd',
+					200: '#b8dfbb',
+					300: '#8ec993',
+					400: '#5eaf65',
+					500: '#2E7D32', // primary
+					600: '#286e2c',
+					700: '#1f5321',
+					800: '#174018',
+					900: '#0e2c0e',
+				},
+				ocean: {
+					50: '#e6f3fb',
+					100: '#cce7f6',
+					200: '#99cfee',
+					300: '#66b7e5',
+					400: '#339fdd',
+					500: '#0277BD', // secondary
+					600: '#026ca9',
+					700: '#025282',
+					800: '#01395c',
+					900: '#012136',
+				},
+				amber: {
+					50: '#fff9e6',
+					100: '#fff3cc',
+					200: '#ffe799',
+					300: '#ffdb66',
+					400: '#ffce33',
+					500: '#FFC107', // accent
+					600: '#e6ad00',
+					700: '#b38600',
+					800: '#805e00',
+					900: '#4d3800',
+				},
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

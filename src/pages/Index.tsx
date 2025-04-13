@@ -1,12 +1,20 @@
-// Update this page (the content is just a fallback if you fail to update the page)
 
-const Index = () => {
+import React from 'react';
+import Header from "@/components/LandingPage/Header";
+import Hero from "@/components/LandingPage/Hero";
+import Features from "@/components/LandingPage/Features";
+import Footer from "@/components/LandingPage/Footer";
+
+const Index: React.FC = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
+    <div className="flex min-h-screen flex-col">
+      <Header />
+      <main className="flex-1">
+        <Hero />
+        <Features />
+        {/* Add more sections as needed */}
+      </main>
+      <Footer />
     </div>
   );
 };
