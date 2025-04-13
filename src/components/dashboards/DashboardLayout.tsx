@@ -1,4 +1,3 @@
-
 import React, { ReactNode, useState } from 'react';
 import { Link, useLocation } from "react-router-dom";
 import Logo from "@/components/shared/Logo";
@@ -37,7 +36,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-// Define types for props
 interface DashboardLayoutProps {
   children: ReactNode;
   userType?: 'admin' | 'enterprise' | 'employee' | 'partner' | 'vendor' | 'investor' | 'supplier';
@@ -46,7 +44,6 @@ interface DashboardLayoutProps {
 }
 
 const getUserTypeConfig = (userType: string) => {
-  // Return navigation and other configurations based on user type
   switch (userType) {
     case 'admin':
       return {
@@ -140,9 +137,6 @@ const getUserTypeConfig = (userType: string) => {
   }
 };
 
-// Add missing icon imports
-import { Handshake, Target, CheckSquare } from 'lucide-react';
-
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   children,
   userType = 'employee',
@@ -156,12 +150,11 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   
   return (
     <div className="flex min-h-screen bg-muted/30">
-      {/* Sidebar for desktop */}
       <aside className="hidden w-64 flex-col border-r bg-card md:flex">
         <div className="flex h-14 items-center border-b px-4">
           <Link to="/dashboard" className="flex items-center gap-2 font-semibold">
             <Logo variant="icon" />
-            <span>EcoFlow Compass</span>
+            <span>Fandoro</span>
           </Link>
         </div>
         
@@ -225,13 +218,12 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         </div>
       </aside>
       
-      {/* Mobile menu */}
       <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
         <SheetContent side="left" className="w-64 p-0">
           <div className="flex h-14 items-center border-b px-4">
             <Link to="/dashboard" className="flex items-center gap-2 font-semibold" onClick={() => setMobileMenuOpen(false)}>
               <Logo variant="icon" />
-              <span>EcoFlow Compass</span>
+              <span>Fandoro</span>
             </Link>
           </div>
           
@@ -268,9 +260,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         </SheetContent>
       </Sheet>
       
-      {/* Main content */}
       <div className="flex flex-1 flex-col">
-        {/* Header */}
         <header className="flex h-14 items-center border-b px-4 lg:px-6">
           <Button
             variant="ghost"
@@ -333,7 +323,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
           </div>
         </header>
         
-        {/* Page content */}
         <main className="flex-1 overflow-auto p-4 lg:p-6">
           {children}
         </main>

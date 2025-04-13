@@ -32,7 +32,7 @@ const Logo: React.FC<LogoProps> = ({ variant = 'full', size = 'md' }) => {
       
       {variant === 'full' && (
         <span className={`font-bold ${sizeClasses[size]} text-foreground`}>
-          EcoFlow<span className="text-forest-500">Compass</span>
+          Fandoro<span className="text-forest-500">SaaS</span>
         </span>
       )}
     </div>

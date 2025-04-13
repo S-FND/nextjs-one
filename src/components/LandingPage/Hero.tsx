@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -17,7 +16,7 @@ const Hero: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="flex flex-col gap-6">
             <div className="inline-flex items-center gap-2 rounded-full bg-muted px-3 py-1 text-sm">
-              <span className="font-semibold">Introducing EcoFlow Compass</span>
+              <span className="font-semibold">Introducing Fandoro</span>
               <span className="rounded-full bg-forest-500 px-1.5 py-0.5 text-xs text-white">New</span>
             </div>
             

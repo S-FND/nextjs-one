@@ -124,7 +124,7 @@ const Footer: React.FC = () => {
         
         <div className="border-t pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            &copy; {new Date().getFullYear()} EcoFlow Compass. All rights reserved.
+            &copy; {new Date().getFullYear()} Fandoro. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             <Link to="#" className="text-sm text-muted-foreground hover:text-foreground">
