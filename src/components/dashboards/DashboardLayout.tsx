@@ -1,3 +1,4 @@
+
 import React, { ReactNode, useState } from 'react';
 import { Link, useLocation } from "react-router-dom";
 import Logo from "@/components/shared/Logo";
@@ -27,7 +28,10 @@ import {
   Package,
   TrendingUp,
   Heart,
-  HelpCircle
+  HelpCircle,
+  Target,
+  CheckSquare,
+  Handshake
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
