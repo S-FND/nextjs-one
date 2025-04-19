@@ -1,60 +1,12 @@
 
 import React, { useState } from 'react';
 import DashboardLayout from '@/components/dashboards/DashboardLayout';
-import { Button } from '@/components/ui/button';
-import { 
-  Card, 
-  CardContent, 
-  CardDescription, 
-  CardHeader, 
-  CardTitle 
-} from '@/components/ui/card';
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
-} from '@/components/ui/table';
-import { 
-  Tabs, 
-  TabsContent, 
-  TabsList, 
-  TabsTrigger 
-} from '@/components/ui/tabs';
-import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogDescription, 
-  DialogFooter, 
-  DialogHeader, 
-  DialogTitle, 
-  DialogTrigger 
-} from '@/components/ui/dialog';
-import { Calendar } from '@/components/ui/calendar';
-import { Label } from '@/components/ui/label';
+import { Search, GraduationCap } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { 
-  Check,
-  Calendar as CalendarIcon,
-  GraduationCap, 
-  Search, 
-  Users,
-  MapPin,
-  Plus,
-  Clock,
-  X
-} from 'lucide-react';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { format } from 'date-fns';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { TrainingList } from '@/components/trainings/TrainingList';
+import { ScheduleDialog } from '@/components/trainings/ScheduleDialog';
 
 // Mock data for demonstration
 const MOCK_TRAININGS = [
@@ -105,13 +57,7 @@ const EHSTrainings = () => {
     avatar: undefined,
   };
 
-  const filteredTrainings = MOCK_TRAININGS.filter(training => {
-    return training.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-           training.description.toLowerCase().includes(searchQuery.toLowerCase());
-  });
-
   const handleStatusUpdate = (trainingId: string, newStatus: 'accepted' | 'rejected') => {
-    // In a real app, this would update the database
     toast({
       title: `Training ${newStatus}`,
       description: `The training has been ${newStatus}.`,
@@ -128,7 +74,6 @@ const EHSTrainings = () => {
       return;
     }
 
-    // In a real app, this would update the database
     toast({
       title: "Training Scheduled",
       description: `Training has been scheduled for ${format(selectedDate, 'PPP')}.`,
@@ -173,223 +118,33 @@ const EHSTrainings = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Training</TableHead>
-                  <TableHead>Category</TableHead>
-                  <TableHead>Duration</TableHead>
-                  <TableHead>Format</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredTrainings.map((training) => (
-                  <TableRow key={training.id}>
-                    <TableCell className="font-medium">
-                      <div>
-                        {training.title}
-                        <p className="text-sm text-muted-foreground truncate max-w-md">
-                          {training.description}
-                        </p>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant="outline">
-                        {training.category}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>{training.duration}</TableCell>
-                    <TableCell>
-                      <Badge variant={training.format === 'In-Person' ? 'default' : 'secondary'}>
-                        {training.format}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <Badge 
-                        variant={training.status === 'pending' ? 'outline' : 
-                               training.status === 'accepted' ? 'default' : 'destructive'}
-                      >
-                        {training.status.charAt(0).toUpperCase() + training.status.slice(1)}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        {training.status === 'pending' ? (
-                          <>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              className="text-green-600"
-                              onClick={() => handleStatusUpdate(training.id, 'accepted')}
-                            >
-                              <Check className="h-4 w-4 mr-1" />
-                              Accept
-                            </Button>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              className="text-red-600"
-                              onClick={() => handleStatusUpdate(training.id, 'rejected')}
-                            >
-                              <X className="h-4 w-4 mr-1" />
-                              Reject
-                            </Button>
-                          </>
-                        ) : training.status === 'accepted' && !training.scheduledDate ? (
-                          <Dialog open={scheduleDialogOpen} onOpenChange={setScheduleDialogOpen}>
-                            <DialogTrigger asChild>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => setSelectedTraining(training)}
-                              >
-                                <CalendarIcon className="h-4 w-4 mr-1" />
-                                Schedule
-                              </Button>
-                            </DialogTrigger>
-                            <DialogContent className="sm:max-w-[425px]">
-                              <DialogHeader>
-                                <DialogTitle>Schedule Training</DialogTitle>
-                                <DialogDescription>
-                                  Set up the training schedule and assign employees
-                                </DialogDescription>
-                              </DialogHeader>
-                              <div className="grid gap-4 py-4">
-                                <div className="grid gap-2">
-                                  <Label>Date</Label>
-                                  <Popover>
-                                    <PopoverTrigger asChild>
-                                      <Button
-                                        variant="outline"
-                                        className={`w-full justify-start text-left font-normal ${
-                                          !selectedDate && "text-muted-foreground"
-                                        }`}
-                                      >
-                                        <CalendarIcon className="mr-2 h-4 w-4" />
-                                        {selectedDate ? (
-                                          format(selectedDate, "PPP")
-                                        ) : (
-                                          <span>Pick a date</span>
-                                        )}
-                                      </Button>
-                                    </PopoverTrigger>
-                                    <PopoverContent className="w-auto p-0" align="start">
-                                      <Calendar
-                                        mode="single"
-                                        selected={selectedDate}
-                                        onSelect={setSelectedDate}
-                                        initialFocus
-                                      />
-                                    </PopoverContent>
-                                  </Popover>
-                                </div>
-                                
-                                <div className="grid gap-2">
-                                  <Label>Format</Label>
-                                  <Select onValueChange={setSelectedFormat}>
-                                    <SelectTrigger>
-                                      <SelectValue placeholder="Select format" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                      <SelectItem value="online">Online</SelectItem>
-                                      <SelectItem value="offline">Offline</SelectItem>
-                                    </SelectContent>
-                                  </Select>
-                                </div>
-
-                                <div className="grid gap-2">
-                                  <Label>Location</Label>
-                                  <Select onValueChange={setSelectedLocation}>
-                                    <SelectTrigger>
-                                      <SelectValue placeholder="Select location" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                      {selectedTraining?.locations.map((loc: string) => (
-                                        <SelectItem key={loc} value={loc}>
-                                          {loc}
-                                        </SelectItem>
-                                      ))}
-                                    </SelectContent>
-                                  </Select>
-                                </div>
-
-                                <div className="grid gap-2">
-                                  <Label>Assign Employees</Label>
-                                  <Select 
-                                    onValueChange={(value) => 
-                                      setSelectedEmployees(prev => 
-                                        prev.includes(value) 
-                                          ? prev.filter(v => v !== value)
-                                          : [...prev, value]
-                                      )
-                                    }
-                                  >
-                                    <SelectTrigger>
-                                      <SelectValue placeholder="Select employees" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                      {MOCK_EMPLOYEES.map(employee => (
-                                        <SelectItem key={employee.id} value={employee.id}>
-                                          {employee.name} - {employee.department}
-                                        </SelectItem>
-                                      ))}
-                                    </SelectContent>
-                                  </Select>
-                                  {selectedEmployees.length > 0 && (
-                                    <div className="flex flex-wrap gap-2 mt-2">
-                                      {selectedEmployees.map(empId => {
-                                        const emp = MOCK_EMPLOYEES.find(e => e.id === empId);
-                                        return (
-                                          <Badge key={empId} variant="secondary">
-                                            {emp?.name}
-                                            <button
-                                              className="ml-1 hover:text-destructive"
-                                              onClick={() => setSelectedEmployees(prev => 
-                                                prev.filter(id => id !== empId)
-                                              )}
-                                            >
-                                              ×
-                                            </button>
-                                          </Badge>
-                                        );
-                                      })}
-                                    </div>
-                                  )}
-                                </div>
-                              </div>
-                              <DialogFooter>
-                                <Button variant="outline" onClick={() => setScheduleDialogOpen(false)}>
-                                  Cancel
-                                </Button>
-                                <Button onClick={handleScheduleTraining}>
-                                  Schedule Training
-                                </Button>
-                              </DialogFooter>
-                            </DialogContent>
-                          </Dialog>
-                        ) : (
-                          <Badge variant="outline" className="gap-2">
-                            <Clock className="h-4 w-4" />
-                            {format(training.scheduledDate, 'PPP')}
-                          </Badge>
-                        )}
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-                {filteredTrainings.length === 0 && (
-                  <TableRow>
-                    <TableCell colSpan={6} className="text-center py-6 text-muted-foreground">
-                      No trainings found. Try adjusting your search.
-                    </TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
+            <TrainingList
+              trainings={MOCK_TRAININGS}
+              searchQuery={searchQuery}
+              onStatusUpdate={handleStatusUpdate}
+              onSchedule={(training) => {
+                setSelectedTraining(training);
+                setScheduleDialogOpen(true);
+              }}
+            />
           </CardContent>
         </Card>
+
+        <ScheduleDialog
+          open={scheduleDialogOpen}
+          onOpenChange={setScheduleDialogOpen}
+          selectedTraining={selectedTraining}
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+          selectedFormat={selectedFormat}
+          setSelectedFormat={setSelectedFormat}
+          selectedLocation={selectedLocation}
+          setSelectedLocation={setSelectedLocation}
+          selectedEmployees={selectedEmployees}
+          setSelectedEmployees={setSelectedEmployees}
+          employees={MOCK_EMPLOYEES}
+          onSchedule={handleScheduleTraining}
+        />
       </div>
     </DashboardLayout>
   );
