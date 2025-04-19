@@ -1,4 +1,3 @@
-
 import React, { ReactNode, useState } from 'react';
 import { Link, useLocation } from "react-router-dom";
 import Logo from "@/components/shared/Logo";
@@ -31,7 +30,12 @@ import {
   HelpCircle,
   Target,
   CheckSquare,
-  Handshake
+  Handshake,
+  Calendar,
+  Clipboard,
+  BookOpen,
+  GraduationCap,
+  ClipboardCheck
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
@@ -58,6 +62,9 @@ const getUserTypeConfig = (userType: string) => {
           { name: 'Organizations', href: '/dashboard/organizations', icon: <Building className="h-5 w-5" /> },
           { name: 'Users', href: '/dashboard/users', icon: <Users className="h-5 w-5" /> },
           { name: 'Analytics', href: '/dashboard/analytics', icon: <Activity className="h-5 w-5" /> },
+          { name: 'EHS Trainings', href: '/dashboard/ehs-trainings', icon: <GraduationCap className="h-5 w-5" /> },
+          { name: 'Training Calendar', href: '/dashboard/training-calendar', icon: <Calendar className="h-5 w-5" /> },
+          { name: 'Training Vendors', href: '/dashboard/training-vendors', icon: <Handshake className="h-5 w-5" /> },
           { name: 'Settings', href: '/dashboard/settings', icon: <Settings className="h-5 w-5" /> },
         ]
       };
@@ -70,8 +77,22 @@ const getUserTypeConfig = (userType: string) => {
           { name: 'ESG Reporting', href: '/dashboard/esg', icon: <FileText className="h-5 w-5" /> },
           { name: 'Net Zero', href: '/dashboard/net-zero', icon: <Globe className="h-5 w-5" /> },
           { name: 'SDG Tracking', href: '/dashboard/sdg', icon: <Target className="h-5 w-5" /> },
+          { name: 'EHS Trainings', href: '/dashboard/ehs-trainings', icon: <GraduationCap className="h-5 w-5" /> },
           { name: 'Teams', href: '/dashboard/teams', icon: <Users className="h-5 w-5" /> },
           { name: 'Settings', href: '/dashboard/settings', icon: <Settings className="h-5 w-5" /> },
+        ]
+      };
+    case 'vendor':
+      return {
+        title: 'Vendor Dashboard',
+        icon: <Package className="h-5 w-5" />,
+        navigation: [
+          { name: 'Overview', href: '/dashboard', icon: <BarChart2 className="h-5 w-5" /> },
+          { name: 'Services', href: '/dashboard/services', icon: <Package className="h-5 w-5" /> },
+          { name: 'EHS Training Opportunities', href: '/dashboard/ehs-training-bids', icon: <GraduationCap className="h-5 w-5" /> },
+          { name: 'Assigned Trainings', href: '/dashboard/assigned-trainings', icon: <ClipboardCheck className="h-5 w-5" /> },
+          { name: 'My Proposals', href: '/dashboard/training-proposals', icon: <Clipboard className="h-5 w-5" /> },
+          { name: 'Sustainability Reports', href: '/dashboard/reports', icon: <FileText className="h-5 w-5" /> },
         ]
       };
     case 'employee':
@@ -94,16 +115,6 @@ const getUserTypeConfig = (userType: string) => {
           { name: 'Joint Initiatives', href: '/dashboard/initiatives', icon: <Users className="h-5 w-5" /> },
           { name: 'Reports', href: '/dashboard/reports', icon: <FileText className="h-5 w-5" /> },
           { name: 'Analytics', href: '/dashboard/analytics', icon: <Activity className="h-5 w-5" /> },
-        ]
-      };
-    case 'vendor':
-      return {
-        title: 'Vendor Dashboard',
-        icon: <Package className="h-5 w-5" />,
-        navigation: [
-          { name: 'Overview', href: '/dashboard', icon: <BarChart2 className="h-5 w-5" /> },
-          { name: 'Services', href: '/dashboard/services', icon: <Package className="h-5 w-5" /> },
-          { name: 'Sustainability Reports', href: '/dashboard/reports', icon: <FileText className="h-5 w-5" /> },
         ]
       };
     case 'investor':

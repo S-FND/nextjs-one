@@ -8,6 +8,14 @@ import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import LoginForm from "./components/auth/LoginForm";
+import EHSTrainings from "./pages/EHSTrainings";
+import TrainingCalendar from "./pages/TrainingCalendar";
+import TrainingDetails from "./pages/TrainingDetails";
+import TrainingVendors from "./pages/TrainingVendors";
+import EHSTrainingBids from "./pages/EHSTrainingBids";
+import AssignedTrainings from "./pages/AssignedTrainings";
+import TrainingProposals from "./pages/TrainingProposals";
+import VendorRegistration from "./pages/VendorRegistration";
 
 const queryClient = new QueryClient();
 
@@ -20,7 +28,15 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<LoginForm />} />
+          <Route path="/vendor-register" element={<VendorRegistration />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard/ehs-trainings" element={<EHSTrainings />} />
+          <Route path="/dashboard/training-calendar" element={<TrainingCalendar />} />
+          <Route path="/dashboard/training-details/:id" element={<TrainingDetails />} />
+          <Route path="/dashboard/training-vendors" element={<TrainingVendors />} />
+          <Route path="/dashboard/ehs-training-bids" element={<EHSTrainingBids />} />
+          <Route path="/dashboard/assigned-trainings" element={<AssignedTrainings />} />
+          <Route path="/dashboard/training-proposals" element={<TrainingProposals />} />
           <Route path="/dashboard/*" element={<Dashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
