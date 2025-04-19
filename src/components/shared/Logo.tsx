@@ -5,9 +5,14 @@ import { Leaf, BarChart2 } from 'lucide-react';
 type LogoProps = {
   variant?: 'full' | 'icon';
   size?: 'sm' | 'md' | 'lg';
+  className?: string;
 };
 
-const Logo: React.FC<LogoProps> = ({ variant = 'full', size = 'md' }) => {
+const Logo: React.FC<LogoProps> = ({ 
+  variant = 'full', 
+  size = 'md',
+  className = ''
+}) => {
   const sizeClasses = {
     sm: 'text-lg',
     md: 'text-xl',
@@ -21,7 +26,7 @@ const Logo: React.FC<LogoProps> = ({ variant = 'full', size = 'md' }) => {
   };
 
   return (
-    <div className="flex items-center gap-2">
+    <div className={`flex items-center gap-2 ${className}`}>
       <div className="relative">
         <Leaf className="text-forest-500" size={iconSize[size]} />
         <BarChart2 
