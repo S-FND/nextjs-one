@@ -141,13 +141,13 @@ export const ScheduleDialog = ({
           <div className="grid gap-2">
             <Label>Assign Employees</Label>
             <Select 
-              onValueChange={(value) => 
-                setSelectedEmployees(prev => 
-                  prev.includes(value) 
-                    ? prev.filter(v => v !== value)
-                    : [...prev, value]
-                )
-              }
+              onValueChange={(value) => {
+                if (selectedEmployees.includes(value)) {
+                  setSelectedEmployees(selectedEmployees.filter(v => v !== value));
+                } else {
+                  setSelectedEmployees([...selectedEmployees, value]);
+                }
+              }}
             >
               <SelectTrigger>
                 <SelectValue placeholder="Select employees" />
@@ -169,9 +169,9 @@ export const ScheduleDialog = ({
                       {emp?.name}
                       <button
                         className="ml-1 hover:text-destructive"
-                        onClick={() => setSelectedEmployees(prev => 
-                          prev.filter(id => id !== empId)
-                        )}
+                        onClick={() => {
+                          setSelectedEmployees(selectedEmployees.filter(id => id !== empId));
+                        }}
                       >
                         ×
                       </button>
