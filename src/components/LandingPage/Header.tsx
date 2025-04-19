@@ -14,10 +14,10 @@ const Header: React.FC = () => {
   return (
     <header className="w-full py-4 px-4 border-b bg-background/90 backdrop-blur-sm fixed top-0 z-50">
       <div className="container flex items-center justify-between">
-        <Logo size="md" />
+        <Logo size="md" className="transition-transform hover:scale-105" />
         
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
           <NavLinks />
           <div className="flex items-center gap-4">
             <Button variant="outline" size="sm" asChild>
@@ -32,19 +32,18 @@ const Header: React.FC = () => {
         {/* Mobile Navigation */}
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="md:hidden">
+            <Button variant="ghost" size="icon" className="md:hidden" aria-label="Open menu">
               <Menu className="h-6 w-6" />
-              <span className="sr-only">Toggle menu</span>
             </Button>
           </SheetTrigger>
-          <SheetContent>
+          <SheetContent side="right" className="w-[80vw] sm:w-[380px]">
             <div className="flex flex-col gap-6 mt-8">
               <NavLinks className="flex-col items-start gap-4" />
               <div className="flex flex-col gap-2 mt-4">
-                <Button variant="outline" asChild className="w-full">
+                <Button variant="outline" asChild className="w-full justify-center">
                   <Link to="/login">Sign In</Link>
                 </Button>
-                <Button asChild className="w-full">
+                <Button asChild className="w-full justify-center">
                   <Link to="/register">Get Started</Link>
                 </Button>
               </div>
@@ -61,28 +60,26 @@ interface NavLinksProps {
 }
 
 const NavLinks: React.FC<NavLinksProps> = ({ className }) => {
+  const navItems = [
+    { label: 'Features', href: '/#features' },
+    { label: 'Solutions', href: '/#solutions' },
+    { label: 'Pricing', href: '/#pricing' },
+    { label: 'About', href: '/#about' },
+  ];
+
   return (
     <ul className={`flex items-center gap-6 ${className}`}>
-      <li>
-        <Link to="/#features" className="text-muted-foreground hover:text-foreground transition-colors">
-          Features
-        </Link>
-      </li>
-      <li>
-        <Link to="/#solutions" className="text-muted-foreground hover:text-foreground transition-colors">
-          Solutions
-        </Link>
-      </li>
-      <li>
-        <Link to="/#pricing" className="text-muted-foreground hover:text-foreground transition-colors">
-          Pricing
-        </Link>
-      </li>
-      <li>
-        <Link to="/#about" className="text-muted-foreground hover:text-foreground transition-colors">
-          About
-        </Link>
-      </li>
+      {navItems.map((item) => (
+        <li key={item.label}>
+          <Link 
+            to={item.href} 
+            className="text-muted-foreground hover:text-foreground transition-colors relative group"
+          >
+            {item.label}
+            <span className="absolute inset-x-0 bottom-0 h-0.5 bg-forest-500 transform scale-x-0 group-hover:scale-x-100 transition-transform" />
+          </Link>
+        </li>
+      ))}
     </ul>
   );
 };
