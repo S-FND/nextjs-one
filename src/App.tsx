@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -16,6 +15,7 @@ import EHSTrainingBids from "./pages/EHSTrainingBids";
 import AssignedTrainings from "./pages/AssignedTrainings";
 import TrainingProposals from "./pages/TrainingProposals";
 import VendorRegistration from "./pages/VendorRegistration";
+import MyTrainings from "./pages/MyTrainings";
 
 const queryClient = new QueryClient();
 
@@ -37,7 +37,7 @@ const App = () => (
           <Route path="/dashboard/ehs-training-bids" element={<EHSTrainingBids />} />
           <Route path="/dashboard/assigned-trainings" element={<AssignedTrainings />} />
           <Route path="/dashboard/training-proposals" element={<TrainingProposals />} />
-          <Route path="/dashboard/*" element={<Dashboard />} />
+          <Route path="/dashboard/my-trainings" element={<MyTrainings />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
